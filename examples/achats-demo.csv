@@ -1,0 +1,4 @@
+id_ligne;id_ticket;date;id_client;sku;nom_produit;quantite;total_ttc
+TEST-LIGNE-001;TEST-TICKET-001;2026-10-23;DEMO-001;CRISTALANIS1L;Cristal Anis 1 L;1;24,90
+TEST-LIGNE-002;TEST-TICKET-001;2026-10-23;DEMO-001;ANISPHENIX1L;Anisette Phenix 1 L;2;39,80
+TEST-LIGNE-003;TEST-TICKET-002;2026-10-23;DEMO-002;SKU-INCONNU-DEMO;Produit sans correspondance de test;1;12,00
