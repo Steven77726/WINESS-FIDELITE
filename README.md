@@ -1,17 +1,27 @@
-# Winess Club — Démonstration 0.6
+# Winess Club — V1 connectée 0.7
 
-Deux accès mobiles : **staff.html** (vendeur et administration dans le même menu) et **client.html**. Les pages sont préparées pour GitHub Pages. La disponibilité publique dépend de l’activation de Pages et de la réussite du déploiement GitHub Actions.
+Deux accès iPhone et ordinateur : **staff.html** (vendeur et administration dans le même menu) et **client.html**. Publication avec GitHub Pages ; la réussite du workflow et l’activation Pages sont nécessaires avant de diffuser les liens.
 
 ## Fonctionnement
 
-- Téléphone client facultatif. S’il est renseigné : exactement 12 chiffres, sans + ni préfixe imposé.
-- Affichage iPhone, QR agrandi au toucher et fermeture au second toucher.
-- Scan QR par caméra ou image, identification du client puis saisie des achats.
-- Photos et liens produits Winess associés au SKU exact.
-- Imports CSV et points configurables avec contrôle des doublons.
-- Centre de notifications client, mémorisation locale et bouton Déconnexion.
+- Connexion par e-mail et mot de passe, confirmation de l’adresse via Supabase. Session conservée jusqu’à Déconnexion ; sessions client et boutique distinctes.
+- Fiche client en base commune. Téléphone facultatif ; s’il est renseigné, exactement 12 chiffres sans signe + ni préfixe imposé.
+- QR agrandi au toucher. Le QR contient un lien boutique qui sélectionne la fiche après connexion du vendeur.
+- Scan caméra ou image, lecteur clavier, recherche par nom, carte ou téléphone. La fiche sélectionnée est amenée à l’écran, y compris sur iPhone.
+- Achats enregistrés dans une transaction serveur, points et notification uniques par ticket. Les doublons exacts sont sans effet, les contenus contradictoires sont refusés.
+- Photos et liens marchands associés au SKU exact : 1 423 correspondances publiques.
+- Realtime Supabase pour les fiches, achats, points, règles et notifications. Une réconciliation toutes les 15 secondes et au retour dans l’application rattrape les événements manqués.
+- Client : uniquement sa fiche et ses achats. Vendeur : fiches et achats. Administrateur : règles, VIP et autorisation des vendeurs par e-mail.
 
-**Utiliser uniquement des informations fictives.** Les rôles ne sont pas authentifiés et la récupération locale ne vérifie pas l’identité. Les deux pages du même navigateur partagent leurs données, mais deux appareils ne se synchronisent pas. Les notifications push et SMS sont désactivées.
+La remise VIP est à appliquer dans Wino. L’application n’écrit pas dans Wino. Les notifications restent dans l’espace client : les alertes push et SMS ne sont pas activées.
+
+## Démarrer
+
+Le propriétaire utilise **steven@sabwine.com** pour créer et confirmer son accès boutique ; son rôle administrateur est vérifié côté serveur. Aucun mot de passe administrateur n’est inclus dans les sources. Les collègues créent leur accès avec une adresse préalablement autorisée dans Administration → Équipe.
+
+Les anciennes cartes `DEMO-*` ne sont pas transférées en base : chaque testeur doit créer son accès et sa nouvelle carte depuis le lien client. Les saisies de démonstration restent locales à l’ancien navigateur.
+
+La délivrabilité des e-mails de confirmation doit être vérifiée pour les adresses des collègues. Le projet Supabase existant peut nécessiter son propre service SMTP. Après confirmation, revenir sur le lien Winess si la redirection du projet ouvre une autre application.
 
 ## Construire et vérifier
 
@@ -22,31 +32,12 @@ npm test
 npm run build
 ```
 
-Le constructeur génère uniquement les pages dans `dist/`. Pour tester :
+Le constructeur génère `dist/index.html`, `dist/staff.html` et `dist/client.html`. Seul `dist/` est publié. Les scripts fournisseur sont intégrés et figés : qrcode-generator 1.4.4, jsQR 1.4.0 et supabase-js 2.118.0 ; licences dans `vendor/`.
 
-```sh
-python3 -m http.server 4319 --bind 127.0.0.1 --directory dist
-```
+`app.js` conserve l’ancienne démonstration pour référence ; la version publiée utilise `connected.js`. La clé Supabase côté navigateur est une clé **publishable**, jamais une clé secrète. Les droits sont imposés par les politiques RLS et fonctions de la base.
 
-Ouvrir staff.html et client.html via HTTP dans le même navigateur.
+## Validation
 
-## Publication
-
-Le workflow `.github/workflows/pages.yml` teste, construit puis déploie uniquement `dist/` sur GitHub Pages. [Guide de déploiement](docs/DEPLOIEMENT-GITHUB.md).
-
-Ni les sources backend, ni le fichier Numbers original, ni les saisies locales ne sont publiés. Le catalogue intégré contient uniquement les correspondances produit publiques vérifiées.
-
-## Base commune prévue
-
-Le propriétaire a choisi son projet Supabase existant et une connexion par e-mail pour démarrer. Le schéma n’a pas été appliqué : la revue automatique exige une approbation explicite des tables, droits et changements Realtime. [Périmètre à approuver](backend/ACTIVATION-A-APPROUVER.md).
-
-## Documents
-
-- [Cahier des charges](docs/CAHIER-DES-CHARGES.md)
-- [iPhone et essais](docs/IPHONE-ET-TEST-EN-LIGNE.md)
-- [Vendeur et scan QR](docs/ESPACE-VENDEUR.md)
-- [Vérifications](docs/VERIFICATION.md)
-
-## Dépendances
-
-qrcode-generator 1.4.4 (MIT, notice dans le fichier), jsQR 1.4.0 (Apache 2.0, licence dans vendor/). Polices Google Fonts et photos publiques Shopify/Winess. Aucune image de scan n’est transmise à un service de reconnaissance.
+- Tests Node : imports, montants, points, doublons, liens produits, parsing QR et ouverture de la bonne fiche après lecture serveur.
+- `backend/verification.sql` : vérification transactionnelle réelle des droits, lookup membre, achat, idempotence, points et notifications dans Supabase. Tous les utilisateurs et achats de test sont annulés en fin de transaction.
+- Connexion affichée dans le navigateur local ; validation d’inscription e-mail avec une vraie boîte et essai caméra physique restent à faire avec le propriétaire.

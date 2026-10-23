@@ -1,33 +1,18 @@
-# Déploiement de test sur GitHub Pages
+# Publier les deux accès Winess
 
-## État actuel
+Le dépôt GitHub est accessible en écriture et contient la version connectée. L’application Supabase Winess est activée.
 
-Le dépôt `Steven77726/WINESS-FIDELITE` est accessible en lecture, mais toujours vide. La tentative d’écriture du 23 octobre 2026 est refusée avec `403 Resource not accessible by integration`. Aucun code n’a été ajouté au dépôt et aucun déploiement n’a eu lieu.
+1. Ouvrir https://github.com/Steven77726/WINESS-FIDELITE avec le compte propriétaire.
+2. Dans la barre du dépôt, cliquer sur **Settings** (si masqué, regarder le menu débordant à droite).
+3. Dans le menu de gauche, rubrique **Code and automation**, cliquer sur **Pages**.
+4. Dans **Build and deployment**, ouvrir **Source** et sélectionner **GitHub Actions**.
+5. Dans **Actions**, ouvrir **Publier la démonstration Winess Club**, puis **Run workflow** sur `main` ou **Re-run all jobs** sur le dernier essai.
+6. Attendre que les tâches build et deploy soient vertes. Vérifier l’adresse fournie par le déploiement avant de partager les accès.
 
-Le propriétaire a choisi de rester sur GitHub. Aucun site n’a été créé ni publié chez un autre hébergeur.
+Adresses attendues, à considérer actives uniquement après réussite :
+- Boutique et administration : https://steven77726.github.io/WINESS-FIDELITE/staff.html
+- Client : https://steven77726.github.io/WINESS-FIDELITE/client.html
 
-## Paquet prêt
+La connexion GitHub actuelle sait envoyer les fichiers mais n’a pas les droits d’administration pour activer Pages. Si Pages n’est pas activé, configure-pages échoue malgré la réussite des tests et de la construction.
 
-Le code source inclut un constructeur sans installation de dépendances et le workflow `.github/workflows/pages.yml`. Le constructeur produit uniquement :
-
-- `dist/index.html`, avec les deux choix d’accès ;
-- `dist/staff.html`, boutique et administration ;
-- `dist/client.html`, espace client ;
-- `dist/.nojekyll`.
-
-Le schéma SQL préparé, les fichiers de travail et les exports privés ne sont pas copiés dans le site publié. Les données intégrées sont des exemples fictifs et le catalogue public du marchand. Les données éventuellement créées pendant les tests locaux ne sont pas intégrées au paquet.
-
-## Étapes après rétablissement de l’accès
-
-1. Autoriser la connexion GitHub utilisée ici à écrire dans `Steven77726/WINESS-FIDELITE`.
-2. Envoyer les sources et le workflow dans le dépôt.
-3. Dans les réglages du dépôt, choisir GitHub Actions comme source de GitHub Pages si ce n’est pas déjà configuré.
-4. Lancer et vérifier le workflow. Seul son résultat réussi permet d’annoncer les deux URLs publiques.
-
-Les noms des pages seront `staff.html` et `client.html` sous l’adresse GitHub Pages retournée par le déploiement. Aucune URL supposée n’est présentée comme déjà disponible.
-
-## Limites pour les essais entre collègues
-
-Les pages HTTPS permettront de tester l’iPhone et de demander l’accès caméra sur un appareil compatible. Les collègues doivent utiliser des informations fictives. Cette version n’authentifie pas les rôles et ne partage pas les données entre appareils. Le schéma Supabase reste à approuver et activer pour la base commune.
-
-Le téléphone client est facultatif. Si rempli : exactement 12 chiffres, sans + ni préfixe imposé. Une carte sans téléphone peut être retrouvée dans la démo grâce à son identifiant.
+Les fichiers publiés sont uniquement ceux de `dist/`. Le schéma SQL et les tests ne sont pas servis par le site. Aucun ancien profil local ni mot de passe ne fait partie du dépôt.

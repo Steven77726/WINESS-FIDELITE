@@ -1,22 +1,13 @@
-# Version iPhone et démonstration partageable
+# Essai sur iPhone et plusieurs appareils
 
-## Téléphone
+1. Après publication Pages réussie, ouvrir le lien client et créer un accès par e-mail et mot de passe. Confirmer l’adresse par le message reçu puis revenir se connecter.
+2. Compléter prénom et nom. Téléphone facultatif ; exactement 12 chiffres si renseigné.
+3. Présenter le QR. Un toucher l’agrandit ; un second toucher le referme.
+4. Sur un autre appareil, ouvrir le lien boutique et utiliser un compte vendeur autorisé ou celui du propriétaire administrateur.
+5. Utiliser **Scanner le QR avec la caméra**. Le vendeur retrouve le nom, le statut VIP, les points et les achats. La fiche est amenée à l’écran sur iPhone.
+6. Ajouter un ticket. Le client voit les achats, photos liées aux SKU, points et notification dans son espace, sans recharger avec Realtime. En cas de perte d’événement, l’actualisation de secours est faite toutes les 15 secondes lorsque l’onglet est visible.
+7. Recharger ou rouvrir l’application : la connexion est mémorisée. **Déconnexion** ferme la session de cet espace sur cet appareil.
 
-Le téléphone est facultatif à l’inscription, lors d’une création par l’administrateur et lors de la correction d’une fiche. S’il est renseigné, il doit contenir exactement 12 chiffres, sans espace, signe + ni indicatif imposé. Plusieurs membres peuvent ne pas renseigner de téléphone. Le schéma Supabase préparé a également été adapté pour accepter une valeur absente ; il n’a toujours pas été appliqué.
+Les anciennes cartes DEMO ne correspondent pas à des fiches serveur. Elles doivent être recréées avec le nouvel accès client. Les messages push et SMS hors application ne sont pas activés.
 
-Après une déconnexion, la carte de démonstration peut être retrouvée avec son identifiant même si aucun téléphone n’a été renseigné. Ce parcours de test n’est pas une authentification.
-
-## iPhone
-
-- Marges adaptées aux zones sûres de l’écran.
-- Champs à 16 px pour éviter le zoom automatique des formulaires sur Safari iPhone.
-- Boutons d’au moins 44 px et menu vendeur/administrateur accessible sur mobile.
-- Formulaires et cartes sur une colonne, tableaux à défilement interne.
-- Fenêtres de QR et de saisie à hauteur limitée, avec défilement sur petit écran.
-- Vérification des dimensions mobiles 390 × 844 et 375 × 667 dans le navigateur intégré. Ce contrôle de dimensions ne remplace pas un essai sur un véritable iPhone.
-
-## Mise en ligne
-
-La publication de test ne doit contenir que les deux interfaces, les exemples fictifs et le catalogue public, sans fichier client importé ni secret. Les données saisies restent dans le navigateur de chaque testeur ; elles ne sont pas envoyées dans Supabase.
-
-Le schéma Supabase pour relier les appareils reste bloqué par la revue automatique dans l’attente d’une approbation explicite du périmètre. Les notifications push et SMS ne sont pas activées. Les collègues peuvent tester l’ergonomie et le scan, mais une vente enregistrée sur l’appareil de l’un ne sera pas transmise à celui d’un autre dans cette démonstration.
+Un essai physique caméra et la réception des e-mails sur les boîtes des collègues restent nécessaires. Si Supabase refuse la délivrance vers une adresse externe, configurer le SMTP du projet plutôt que désactiver la confirmation d’adresse.

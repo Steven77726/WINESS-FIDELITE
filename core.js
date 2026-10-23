@@ -69,3 +69,9 @@ export function validatePurchases(rows,existing,members,catalog,rate){
 }
 export function safeProductURL(value){try{const u=new URL(value);return u.protocol==='https:'&&u.hostname==='winess.com'&&u.pathname.startsWith('/products/')?u.href:'';}catch{return '';}}
 export function safeImageURL(value){try{const u=new URL(value);return u.protocol==='https:'&&['cdn.shopify.com','winess.com'].includes(u.hostname)?u.href:'';}catch{return '';}}
+
+export function parseMemberCode(value,origin){
+ const text=clean(value),prefix='winess-club:member:';
+ if(text.startsWith(prefix))return text.slice(prefix.length);
+ try{const url=new URL(text);if(url.origin!==origin||!/(?:staff|WINESS-STAFF)\.html$/.test(url.pathname))return '';return new URLSearchParams(url.hash.slice(1)).get('card')||'';}catch{return '';}
+}

@@ -1,11 +1,11 @@
 {
   "name": "winess-fidelite",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.js",
     "build": "node scripts/build.mjs"
   },
-  "description": "Démonstration statique Winess Club, sans données personnelles réelles ni authentification."
+  "description": "Winess Club : accès client et boutique reliés à Supabase, authentification e-mail et QR."
 }
